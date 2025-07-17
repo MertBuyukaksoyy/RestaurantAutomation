@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kamera ile Tarama</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        #videoElement {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        #scanned-result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #2c3e50;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Yemek Tanıma</h1>
+        <video autoplay="true" id="videoElement"></video>
+        <div id="scanned-result">Taranıyor...</div>
+    </div>
+
+    <script>
+        const video = document.querySelector("#videoElement");
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error("Kameraya erişilemedi:", err);
+                document.getElementById("scanned-result").innerText = "Kameraya erişilemedi.";
+            }
+        }
+
+        startCamera();
+
+        // Her 5 saniyede bir fotoğraf çekip sunucuya gönder
+        setInterval(() => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob((blob) => {
+                const formData = new FormData();
+                formData.append("frame", blob, "frame.jpg");
+
+                fetch("/upload_frame", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.recognized) {
+                        document.getElementById("scanned-result").innerText = `Tespit edilen: ${data.recognized}`;
+                    } else {
+                        document.getElementById("scanned-result").innerText = "Taranıyor...";
+                    }
+                })
+                .catch(error => {
+                    console.error("Tarama hatası:", error);
+                });
+            }, "image/jpeg");
+        }, 5000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Garson Paneli</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Garson Paneli</h2>
+
+        <label for="tableSelect"><strong>Masa Seç:</strong></label>
+        <select id="tableSelect" style="padding: 8px; border-radius: 6px; margin-bottom: 15px;">
+            {% for t in tables %}
+                <option value="{{ t }}">{{ t }}</option>
+            {% endfor %}
+        </select>
+
+        <div id="status" class="card"></div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="markGarsonArrived()">✅ Garson Geldi</button>
+            <button onclick="resetTable()">❌ Masayı Sıfırla</button>
+            <button onclick="loadHistory()">📜 Geçmiş Siparişler</button>
+        </div>
+
+        <div id="historyModal" class="modal">
+            <h3>Geçmiş Siparişler</h3>
+            <div id="historyContent"></div>
+            <button onclick="document.getElementById('historyModal').style.display='none'">Kapat</button>
+        </div>
+    </div>
+
+    <script src="/static/garson.js"></script>
+</body>
+</html>

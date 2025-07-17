@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Masa Yönetim Paneli</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #2c3e50;
+        }
+
+        .btn-group {
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 600px) {
+            button {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🍽️ Masa Yönetim Paneli</h1>
+
+    <h2>👤 Müşteri Geldi</h2>
+    <div class="btn-group">
+        <button onclick="sendGuestArrived('table_1')">Müşteri Table 1</button>
+        <button onclick="sendGuestArrived('table_2')">Müşteri Table 2</button>
+    </div>
+
+    <h2>🧍‍♂️ Garson Geldi</h2>
+    <div class="btn-group">
+        <button onclick="sendGarsonArrived('table_1', 'garson_1')">Garson 1 - Table 1</button>
+        <button onclick="sendGarsonArrived('table_2', 'garson_2')">Garson 2 - Table 2</button>
+    </div>
+
+    <script>
+        function sendGuestArrived(tableId) {
+            fetch("/guest_arrived", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ table_id: tableId })
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(err => alert("Hata: " + err));
+        }
+
+        function sendGarsonArrived(tableId, garsonId) {
+            fetch("/garson_arrived", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ table_id: tableId, garson_id: garsonId })
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(err => alert("Hata: " + err));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Menü - Masa {{ table_id }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        p {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        li {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            color: #444;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Masa: {{ table_id }}</h2>
+    <p>Garson birazdan yanınıza gelecektir.</p>
+    <ul>
+        {% for name, price in price_list.items() %}
+            <li><span>{{ name }}</span> <span>{{ price }}₺</span></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
