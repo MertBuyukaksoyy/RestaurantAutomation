@@ -5,46 +5,75 @@
     <title>Kamera ile Tarama</title>
     <link rel="stylesheet" href="/static/styles.css">
     <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
         #videoElement {
-            width: 100%;
+            width: 90%;
             max-width: 600px;
-            border-radius: 10px;
-            margin: 20px auto;
-            display: block;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-top: 20px;
         }
 
         #scanned-result {
             margin-top: 20px;
-            font-size: 18px;
-            color: #2c3e50;
-            text-align: center;
+            font-size: 20px;
+            color: #34495e;
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Yemek Tanıma</h1>
-        <video autoplay="true" id="videoElement"></video>
-        <div id="scanned-result">Taranıyor...</div>
+        <h1>📷 Canlı Yemek Tanıma</h1>
+        <video autoplay playsinline id="videoElement"></video>
+        <div id="scanned-result">🔍 Taranıyor...</div>
     </div>
 
     <script>
-        const video = document.querySelector("#videoElement");
+        const video = document.getElementById("videoElement");
+        const resultDiv = document.getElementById("scanned-result");
 
         async function startCamera() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: { ideal: "environment" } },
+                    audio: false
+                });
                 video.srcObject = stream;
+                console.log("Kamera yayını başladı.");
             } catch (err) {
                 console.error("Kameraya erişilemedi:", err);
-                document.getElementById("scanned-result").innerText = "Kameraya erişilemedi.";
+                resultDiv.innerText = "❌ Kameraya erişilemedi.";
             }
         }
 
         startCamera();
 
-        // Her 5 saniyede bir fotoğraf çekip sunucuya gönder
+        // Tarama işlemi
         setInterval(() => {
+            if (video.videoWidth === 0 || video.videoHeight === 0) {
+                console.warn("Video boyutu okunamıyor, kamera başlamamış olabilir.");
+                return;
+            }
+
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
@@ -60,14 +89,17 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success && data.recognized) {
-                        document.getElementById("scanned-result").innerText = `Tespit edilen: ${data.recognized}`;
-                    } else {
-                        document.getElementById("scanned-result").innerText = "Taranıyor...";
-                    }
-                })
+    if (data.success && data.details && data.details.length > 0) {
+        const items = data.details.map(item => item.item).join(", ");
+        resultDiv.innerText = `🍽️ Tespit edilen: ${items}`;
+    } else {
+        resultDiv.innerText = "🔍 Taranıyor...";
+    }
+})
+
                 .catch(error => {
                     console.error("Tarama hatası:", error);
+                    resultDiv.innerText = "⚠️ Tarama sırasında hata oluştu.";
                 });
             }, "image/jpeg");
         }, 5000);
