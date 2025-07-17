@@ -105,10 +105,10 @@ def camera():
 
 @app.route("/upload_frame", methods=["POST"])
 def upload_frame():
-    if "image" not in request.files:
+    if "frame" not in request.files:
         return jsonify({"success": False, "error": "No image provided"})
 
-    image_file = request.files["image"]
+    image_file = request.files["frame"]
     save_path = "static/uploaded.jpg"
     image_file.save(save_path)
 
