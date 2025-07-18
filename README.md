@@ -26,11 +26,11 @@ Bu proje, restoran masalarına yerleştirilmiş kameralar aracılığıyla masad
 
 ## 📁 Proje Kurulumu
 
--Projeyi kurmak için bu repoyu indirdikten sonra pythonda gerekli kütüphaneler kurulur.
--Modelin eğitimi YOLOv8 ile colab ortamında yapılmıştır bu projede best.pt dosyası tahmin için kullanılmaktadır.
--Projeyi bilgisayarda çalıştırmak için server.py çalıştırılır sonrasında program çalıştığı localhost adresini verecekti o adrese gidilir.
--Proje çalıştırıldıktan sonra generate_qr.py çalıştırılır böylece masaların qrları proje dosya yolunda qrcodes klasörü altında oluşur ve bu qrlar masaya oturmak ve menüye ulaşmak için kullanılabilir.
--Sonrasında projenin çalıştığı adreste /garson endpointine giderek garson arayüzüne ulaşılabilir.
--Bilgisayardaki kamera ile tanıma yapılmak isteniyorsa /camera adresine gidilebilir.
--Eğer mobilde çalıştırılmak istenirse ngrok kullanılabilir.
+- Projeyi kurmak için bu repoyu indirdikten sonra pythonda gerekli kütüphaneler kurulur.
+- Modelin eğitimi YOLOv8 ile colab ortamında yapılmıştır bu projede best.pt dosyası tahmin için kullanılmaktadır.
+- Projeyi bilgisayarda çalıştırmak için server.py çalıştırılır sonrasında program çalıştığı localhost adresini verecekti o adrese gidilir.
+- Proje çalıştırıldıktan sonra generate_qr.py çalıştırılır böylece masaların qrları proje dosya yolunda qrcodes klasörü altında oluşur ve bu qrlar masaya oturmak ve menüye ulaşmak için kullanılabilir.
+- Sonrasında projenin çalıştığı adreste /garson endpointine giderek garson arayüzüne ulaşılabilir.
+- Bilgisayardaki kamera ile tanıma yapılmak isteniyorsa /camera adresine gidilebilir.
+- Eğer mobilde çalıştırılmak istenirse ngrok kullanılabilir.
 
