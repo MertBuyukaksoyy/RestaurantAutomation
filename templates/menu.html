@@ -50,8 +50,8 @@
     <h2>Masa: {{ table_id }}</h2>
     <p>Garson birazdan yanınıza gelecektir.</p>
     <ul>
-        {% for name, price in price_list.items() %}
-            <li><span>{{ name }}</span> <span>{{ price }}₺</span></li>
+        {% for name, item in price_list.items() %}
+            <li><span>{{ name }}</span> <span>{{ item.price }}₺</span></li>
         {% endfor %}
     </ul>
 </body>
