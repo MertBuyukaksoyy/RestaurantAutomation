@@ -33,4 +33,5 @@ Bu proje, restoran masalarına yerleştirilmiş kameralar aracılığıyla masad
 - Sonrasında projenin çalıştığı adreste /garson endpointine giderek garson arayüzüne ulaşılabilir.
 - Bilgisayardaki kamera ile tanıma yapılmak isteniyorsa /camera adresine gidilebilir.
 - Eğer mobilde çalıştırılmak istenirse ngrok kullanılabilir.
+- Direkt model ile tahmin yapmak için main.py çalıştırılabilir böylece /static dosya yolu üzerindeki resimlerden tahmin yapabilirsiniz 
 
