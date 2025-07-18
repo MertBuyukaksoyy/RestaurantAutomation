@@ -2,14 +2,11 @@ from ultralytics import YOLO
 import cv2
 import json
 
-# Modeli yükle
 model = YOLO("model/best.pt")
 
-# Sınıf isimlerini ve fiyatları JSON'dan yükle
 with open("data/price_list.json", "r", encoding="utf-8") as f:
     CLASS_INFO = json.load(f)
 
-# class_id'ye karşılık gelen class_name'i bul
 ID_TO_NAME = {v["id"]: name for name, v in CLASS_INFO.items()}
 
 # Tahmin fonksiyonu

@@ -23,7 +23,6 @@ def send_item_to_api(item_name, price, table_id="table_1"):
     except Exception as e:
         print("API hatası:", e)
 
-# Fiyat listesi
 with open("data/price_list.json", "r") as f:
     PRICE_LIST = json.load(f)
 
