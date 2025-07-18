@@ -33,5 +33,24 @@ Bu proje, restoran masalarına yerleştirilmiş kameralar aracılığıyla masad
 - Sonrasında projenin çalıştığı adreste /garson endpointine giderek garson arayüzüne ulaşılabilir.
 - Bilgisayardaki kamera ile tanıma yapılmak isteniyorsa web üzerinden /camera adresine gidilebilir veya app.py dosyası çalıştırlabilir.
 - Eğer mobilde çalıştırılmak istenirse ngrok kullanılabilir.
-- Direkt model ile tahmin yapmak için main.py çalıştırılabilir böylece /static dosya yolu üzerindeki resimlerden tahmin yapabilirsiniz 
+- Direkt model ile tahmin yapmak için main.py çalıştırılabilir böylece /static dosya yolu üzerindeki resimlerden tahmin yapabilirsiniz
+
+---
+
+## Model Eğitimi
+
+- Modelde kullanılan veri seti UEC FOOD 100'dür.
+- Bu veri seti 100 adet farklı classtan binlerce bounding box ile işaretlenmiş veri içermektedir.
+- Eğitim aşamasında bu veri seti ve etiketleri YOLO formatına getirilmiştir.
+- Sornasında YOLOv8 ile 50 epochda eğitilmiştir.
+- Başarı oranı olarak precissionda 0.70 mAP50'de 0.74 başarı oranı elde edilmiş ve modelde overfitting olmamıştır.
+- Veri seti linki http://foodcam.mobi/dataset100.html
+
+@InProceedings{matsuda12,
+  author    = "Matsuda, Y. and Hoashi, H. and Yanai, K.",
+  title     = "Recognition of Multiple-Food Images by Detecting Candidate Regions",
+  booktitle = "Proc. of IEEE International Conference on Multimedia and Expo (ICME)",
+  year      = "2012"
+}
+
 
