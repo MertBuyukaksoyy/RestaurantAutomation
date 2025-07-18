@@ -13,7 +13,7 @@ with open("data/price_list.json", "r", encoding="utf-8") as f:
 ID_TO_NAME = {v["id"]: name for name, v in CLASS_INFO.items()}
 
 # Tahmin fonksiyonu
-def detect_dishes(image_path, conf=0.3):
+def detect_dishes(image_path, conf=0.6):
     results = model.predict(source=image_path, conf=conf)
     detections = []
 

@@ -2,7 +2,7 @@ import qrcode
 
 def create_qr_for_table(table_id):
     # Menü ve bildirim için açılacak URL
-    url = f"http://127.0.0.1:5000/menu?table_id={table_id}"
+    url = f"   https://eb66a68527e3.ngrok-free.app/menu?table_id={table_id}"
 
     # QR kod oluştur
     img = qrcode.make(url)
